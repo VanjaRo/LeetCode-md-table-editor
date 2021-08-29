@@ -5,10 +5,7 @@
 # ]
 
 # from selenium import webdriver
-from requests import get, post
-from bs4 import BeautifulSoup
-import pandas as pd
-
+from requests import post
 from typing import Dict, List
 
 # css-101rr4k –– class for info
