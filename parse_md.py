@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 # Main:
 # Add to the existing group +
@@ -11,8 +11,8 @@ from typing import Dict, List
 # Sort by difficuly
 
 
-HEADER = """| Status  |  #  |                               Title                               | **Difficulty** |                                    Solution                                    |
-| :-----: | :-: | :---------------------------------------------------------------: | :------------: | :----------------------------------------------------------------------------: |"""
+TABLE_HEADER = """| Status  |  #  |                               Title                               | **Difficulty** |                                    Solution                                    |
+| :-----: | :-: | :---------------------------------------------------------------: | :------------: | :----------------------------------------------------------------------------: |\n"""
 
 
 def get_table_el(info: Dict[str, str]) -> str:
@@ -33,7 +33,7 @@ def get_table_el(info: Dict[str, str]) -> str:
     return ret
 
 
-def srch_el(lines: List[str], head_title: str) -> int:
+def srch_el(lines: List[str], head_title: str) -> Tuple[int, bool]:
     i = 0
     if head_title == "":
         return -1
@@ -56,23 +56,27 @@ def srch_el(lines: List[str], head_title: str) -> int:
                     if curr_title.lower() == head_title.lower():
                         right_title = True
             i += 1
-    return i
+    return (i, right_title)
 
 
-def mod_md(root: str, info: List[Dict[str, str]]) -> None:
+def mod_md(root: str, head_title: str, info: List[Dict[str, str]]) -> None:
     for el in info:
         f = open(root, "r")
         lines = f.readlines()
 
         table_el = get_table_el(el)
 
-        head_title = ""
-        if "head" in el:
-            head_title = el["head"]
+        # if "head" in el:
+        #     head_title = el["head"]
 
-        i = srch_el(lines, head_title)
+        i, found = srch_el(lines, head_title)
+        # create new title
+        if not found and len(head_title) != 0:
+            title_header = f"\n## Title: {head_title}\n\n"
+            lines = lines = lines[:] + \
+                [title_header] + [] + [TABLE_HEADER]
+            i = -1
 
-        # lines = lines[:i] + [table_el] + lines[i:]
         if i == -1:
             lines = lines[:] + [table_el]
         else:

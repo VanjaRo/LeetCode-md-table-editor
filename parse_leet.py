@@ -14,11 +14,11 @@ from typing import Dict, List
 
 
 def parse_hrefs(hrefs: List[str]) -> List[Dict[str, str]]:
-    diff_classes = {
-        "css-14oi08n": "Easy",
-        "css-dcmtd5": "Medium",
-        "css-t42afm": "Hard",
-    }
+    # diff_classes = {
+    #     "css-14oi08n": "Easy",
+    #     "css-dcmtd5": "Medium",
+    #     "css-t42afm": "Hard",
+    # }
     ret = []
 
     for href in hrefs:

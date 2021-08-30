@@ -21,8 +21,9 @@ from parse_md import mod_md
 parser = argparse.ArgumentParser(
     description='Create/Modify your LeetCode table.')
 parser.add_argument('-p', '--md-path', default='README.md', type=str)
+parser.add_argument('-s', '--md-section', default='', type=str)
 parser.add_argument('-hrf', '--question-href', nargs='+', type=str)
 
 args = parser.parse_args()
 questions = parse_hrefs(args.question_href)
-mod_md(args.md_path, questions)
+mod_md(args.md_path, args.md_section, questions)
